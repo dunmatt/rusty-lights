@@ -24,7 +24,11 @@ app! {
 }
 
 fn init(p: init::Peripherals) {
-  // TODO: initialize the GPIO
+  // TODO (robomancer): try taking the below line out to see if it's required
+  p.RCC.ahb1enr.write(|w| w.gpiocen().enabled());
+  p.GPIOC.moder.write(|w| w.moder13().output());
+  p.GPIOC.otyper.write(|w| w.ot13().clear_bit());
+
   p.SYST.set_clock_source(SystClkSource::Core);
   p.SYST.set_reload(8_000_000);  // 1s?
   p.SYST.enable_interrupt();
@@ -38,8 +42,7 @@ fn idle() -> ! {
 }
 
 fn toggle(_t: &mut Threshold, r: SYS_TICK::Resources) {
-  // let gpioc = &**r.GPIOC;
-  (&**r.GPIOC).odr.modify(|r, w| w.odr13().bit(!r.odr13().bit()));
+  r.GPIOC.odr.modify(|r, w| w.odr13().bit(!r.odr13().bit()));
 }
 
 
