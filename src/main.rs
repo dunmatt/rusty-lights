@@ -30,7 +30,7 @@ fn init(p: init::Peripherals) {
   p.GPIOC.otyper.write(|w| w.ot13().clear_bit());
 
   p.SYST.set_clock_source(SystClkSource::Core);
-  p.SYST.set_reload(8_000_000);  // 1s?
+  p.SYST.set_reload(16_000_000);  // 2s
   p.SYST.enable_interrupt();
   p.SYST.enable_counter();
 }
@@ -57,7 +57,9 @@ extern fn panic_fmt(_: ::core::fmt::Arguments, _: &'static str, _: u32) -> ! {
 #[allow(dead_code)]
 #[used]
 #[link_section = ".vector_table.interrupts"]
-static INTERRUPTS: [extern "C" fn(); 240] = [default_handler; 240];
+static INTERRUPTS: [extern "C" fn(); 97] = [default_handler; 97];
+// static INTERRUPTS: [extern "C" fn(); 24] = [default_handler; 24];
+// static INTERRUPTS: [extern "C" fn(); 240] = [default_handler; 240];
 
 extern "C" fn default_handler() {
     asm::bkpt();
