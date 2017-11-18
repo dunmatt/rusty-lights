@@ -1,0 +1,24 @@
+[package]
+name = "sign_firmware"
+version = "0.0.1"
+authors = ["M@ <robomancer@optimusride.com>"]
+categories = ["embedded", "no-std"]
+description = "With any luck this will cause an STM32F4 based board to drive a few thousand LEDs."
+keywords = ["arm", "cortex-m"]
+license = "MIT OR Apache-2.0"
+repository = "TODO"
+[dependencies]
+cortex-m = "*"
+cortex-m-rt = "*"
+cortex-m-rtfm = "*"
+stm32f40x = "*"
+
+[profile]
+[profile.release]
+debug = true
+lto = true
+panic = 'abort'
+
+[target.arm-none-linux-gnueabihf]
+ar = "arm-linux-gnueabihf-gcc-ar"
+linker = "arm-linux-gnueabihf-gcc"
