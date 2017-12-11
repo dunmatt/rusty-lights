@@ -10,6 +10,8 @@
 //! - Xargo: `cargo install xargo`
 //! - [Optional] Cargo `add` subcommand: `cargo install cargo-edit`
 //!
+//!  rustup target install armv7-unknown-linux-gnueabihf
+//!
 //! # Usage
 //!
 //! - Clone this crate

@@ -45,21 +45,11 @@ fn toggle(_t: &mut Threshold, r: SYS_TICK::Resources) {
   r.GPIOC.odr.modify(|r, w| w.odr13().bit(!r.odr13().bit()));
 }
 
-
-// NOTE: the below hackery is due to not including std
-
-#[lang="panic_fmt"]
-extern fn panic_fmt(_: ::core::fmt::Arguments, _: &'static str, _: u32) -> ! {
-  loop {}
-}
-
 // As we are not using interrupts, we just register a dummy catch all handler
 #[allow(dead_code)]
 #[used]
 #[link_section = ".vector_table.interrupts"]
-static INTERRUPTS: [extern "C" fn(); 97] = [default_handler; 97];
-// static INTERRUPTS: [extern "C" fn(); 24] = [default_handler; 24];
-// static INTERRUPTS: [extern "C" fn(); 240] = [default_handler; 240];
+static INTERRUPTS: [extern "C" fn(); 82] = [default_handler; 82];
 
 extern "C" fn default_handler() {
     asm::bkpt();
